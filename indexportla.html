@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Mental 2026</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 450px; width: 90%; text-align: center; }
+        .progress-container { width: 100%; background: #eee; height: 8px; border-radius: 10px; margin-bottom: 30px; }
+        .progress-bar { width: 20%; height: 100%; background: #1a73e8; border-radius: 10px; transition: 0.3s; }
+        .step { display: none; animation: fadeIn 0.4s; }
+        .step.active { display: block; }
+        h2 { color: #1a73e8; margin-bottom: 20px; }
+        select { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; margin-bottom: 20px; outline: none; }
+        button { width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-next { background: #1a73e8; color: white; }
+        .btn-result { background: #28a745; color: white; }
+        .btn-offer { background: #ff5722; color: white; margin-top: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="progress-container"><div class="progress-bar" id="pb"></div></div>
+
+    <div class="step active" id="step1">
+        <h2>Passo 1</h2>
+        <p>Como é a sua primeira hora do dia?</p>
+        <select id="q1">
+            <option value="0">Celular imediatamente</option>
+            <option value="10">Rotina básica / Café</option>
+            <option value="20">Oração, Meditação ou Exercício</option>
+        </select>
+        <button class="btn-next" onclick="nextStep(2)">Próximo</button>
+    </div>
+
+    <div class="step" id="step2">
+        <h2>Passo 2</h2>
+        <p>Horas de tela ontem:</p>
+        <select id="q2">
+            <option value="0">Mais de 6 horas</option>
+            <option value="10">Entre 3 e 6 horas</option>
+            <option value="20">Menos de 3 horas</option>
+        </select>
+        <button class="btn-next" onclick="nextStep(3)">Próximo</button>
+    </div>
+
+    <div class="step" id="step3">
+        <h2>Passo 3</h2>
+        <p>Necessidade de checar notificações:</p>
+        <select id="q3">
+            <option value="0">Sinto o "toque fantasma"</option>
+            <option value="10">Às vezes</option>
+            <option value="20">Raramente ou nunca</option>
+        </select>
+        <button class="btn-next" onclick="nextStep(4)">Próximo</button>
+    </div>
+
+    <div class="step" id="step4">
+        <h2>Passo 4</h2>
+        <p>Foco em uma leitura de 10 min:</p>
+        <select id="q4">
+            <option value="0">Me distraio logo</option>
+            <option value="10">Consigo com esforço</option>
+            <option value="20">Foco total</option>
+        </select>
+        <button class="btn-next" onclick="nextStep(5)">Próximo</button>
+    </div>
+
+    <div class="step" id="step5">
+        <h2>Passo 5</h2>
+        <p>Cansaço mental ao fim do dia:</p>
+        <select id="q5">
+            <option value="0">Cérebro "frito"</option>
+            <option value="10">Cansado, mas funcional</option>
+            <option value="20">Energia preservada</option>
+        </select>
+        <button class="btn-result" onclick="calcular()">VER MEU RESULTADO</button>
+    </div>
+
+    <div class="step" id="stepFinal">
+        <h2 id="titulo-res"></h2>
+        <p id="desc-res"></p>
+        <button class="btn-offer" id="btn-dinamico" onclick="irParaProduto()">SOLUÇÃO INDICADA</button>
+        <button style="background:#ddd; color:#333; margin-top:10px" onclick="location.reload()">Refazer Teste</button>
+    </div>
+</div>
+
+<script>
+    let linkFinal = "";
+
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + step).classList.add('active');
+        document.getElementById('pb').style.width = (step * 20) + "%";
+    }
+
+    function calcular() {
+        let total = parseInt(document.getElementById('q1').value) +
+                    parseInt(document.getElementById('q2').value) +
+                    parseInt(document.getElementById('q3').value) +
+                    parseInt(document.getElementById('q4').value) +
+                    parseInt(document.getElementById('q5').value);
+
+        nextStep('Final');
+        document.getElementById('pb').style.width = "100%";
+        
+        let titulo = document.getElementById('titulo-res');
+        let desc = document.getElementById('desc-res');
+        let btn = document.getElementById('btn-dinamico');
+
+        if(total <= 40) {
+            titulo.innerText = "Nível Crítico!";
+            desc.innerText = "Sua dopamina está desregulada. O excesso de telas destruiu seu foco e sua oração. Você precisa do Detox urgente.";
+            btn.innerText = "BAIXAR DETOX DIGITAL";
+            linkFinal = "https://go.hotmart.com/V104583149C";
+        } else if(total <= 70) {
+            titulo.innerText = "Nível Alerta";
+            desc.innerText = "A ansiedade digital está vencendo. Fortaleça sua mente antes que seja tarde.";
+            btn.innerText = "MENTE INABALÁVEL AGORA";
+            linkFinal = "https://go.hotmart.com/K104595453M";
+        } else {
+            titulo.innerText = "Alta Performance";
+            desc.innerText = "Parabéns! Sua rotina de oração e controle é sólida. O Combo Total é para você.";
+            btn.innerText = "COMBO EQUILÍBRIO TOTAL";
+            linkFinal = "https://go.hotmart.com/A104629637C";
+        }
+    }
+
+    function irParaProduto() { window.location.href = linkFinal; }
+</script>
+
+</body>
+</html>
