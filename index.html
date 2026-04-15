@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scanner Mental</title>
 
+<!-- 🔥 GOOGLE ADS TAG -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-SEU_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-SEU_ID');
+</script>
+
 <style>
 body {
   margin: 0;
@@ -23,9 +33,6 @@ body {
   text-align: center;
 }
 
-h1 { font-size: 22px; }
-h2 { font-size: 20px; }
-
 button {
   padding: 15px;
   width: 100%;
@@ -36,10 +43,6 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
-}
-
-button:hover {
-  background: #5a4cd1;
 }
 
 .progress {
@@ -207,13 +210,13 @@ function showResult() {
 
   if (score <= 7) {
     title = "Mente Focada";
-    text = "Você já tem um bom controle mental.\n\nMas ainda pode evoluir para um nível onde foco, disciplina e clareza se tornam naturais.\n\nCom as estratégias certas, você acelera ainda mais seus resultados.";
+    text = "Você já tem um bom controle mental, mas pode evoluir ainda mais com estratégias certas.";
   } else if (score <= 12) {
     title = "Mente Distraída";
-    text = "Sua mente perde foco com facilidade, principalmente com excesso de estímulos.\n\nIsso pode estar atrasando sua evolução e te fazendo começar coisas sem terminar.\n\nCom alguns ajustes simples, você consegue recuperar seu foco e disciplina.";
+    text = "Sua mente perde foco com facilidade. Pequenos ajustes podem mudar completamente seu desempenho.";
   } else {
     title = "Mente Sobrecarregada";
-    text = "Sua mente está consumindo energia demais com pensamentos e estímulos constantes.\n\nIsso pode estar te deixando cansado, sem foco e travado — mesmo sem você perceber.\n\nMas isso não melhora sozinho.\n\nExiste uma forma simples de recuperar o controle mental e reduzir essa sobrecarga no dia a dia.";
+    text = "Sua mente está consumindo energia demais. Isso pode estar te travando sem você perceber.";
   }
 
   document.getElementById("resultTitle").innerText = title;
@@ -224,12 +227,17 @@ function redirect() {
   let link = "";
 
   if (score <= 7) {
-    link = "https://go.hotmart.com/A104629637C"; // combo
+    link = "https://go.hotmart.com/A104629637C";
   } else if (score <= 12) {
-    link = "https://go.hotmart.com/K104595453M"; // detox
+    link = "https://go.hotmart.com/K104595453M";
   } else {
-    link = "https://go.hotmart.com/V104583149C"; // mente inabalável
+    link = "https://go.hotmart.com/V104583149C";
   }
+
+  // 🔥 DISPARA CONVERSÃO
+  gtag('event', 'conversion', {
+    'send_to': 'AW-SEU_ID/CONVERSION_ID'
+  });
 
   window.location.href = link;
 }
