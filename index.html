@@ -1,135 +1,239 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner Mental 2026</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #eef2f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 450px; width: 90%; text-align: center; }
-        .progress-container { width: 100%; background: #eee; height: 8px; border-radius: 10px; margin-bottom: 30px; }
-        .progress-bar { width: 20%; height: 100%; background: #1a73e8; border-radius: 10px; transition: 0.3s; }
-        .step { display: none; animation: fadeIn 0.4s; }
-        .step.active { display: block; }
-        h2 { color: #1a73e8; margin-bottom: 20px; }
-        select { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; margin-bottom: 20px; outline: none; }
-        button { width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-next { background: #1a73e8; color: white; }
-        .btn-result { background: #28a745; color: white; }
-        .btn-offer { background: #ff5722; color: white; margin-top: 10px; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scanner Mental</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f1a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 { font-size: 22px; }
+h2 { font-size: 20px; }
+
+button {
+  padding: 15px;
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #6c5ce7;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5a4cd1;
+}
+
+.progress {
+  height: 5px;
+  background: #333;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 5px;
+  background: #6c5ce7;
+  width: 0%;
+  transition: 0.3s;
+}
+
+.hidden {
+  display: none;
+}
+</style>
 </head>
+
 <body>
 
-<div class="card">
-    <div class="progress-container"><div class="progress-bar" id="pb"></div></div>
+<div class="container">
 
-    <div class="step active" id="step1">
-        <h2>Passo 1</h2>
-        <p>Como é a sua primeira hora do dia?</p>
-        <select id="q1">
-            <option value="0">Celular imediatamente</option>
-            <option value="10">Rotina básica / Café</option>
-            <option value="20">Oração, Meditação ou Exercício</option>
-        </select>
-        <button class="btn-next" onclick="nextStep(2)">Próximo</button>
+  <!-- INÍCIO -->
+  <div id="start">
+    <h1>Sua mente pode estar te sabotando</h1>
+    <p>Descubra em 60 segundos seu nível mental</p>
+
+    <p>✔ Sem cadastro<br>✔ Resultado imediato<br>✔ Leva menos de 1 minuto</p>
+
+    <button onclick="startQuiz()">Fazer teste agora</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="hidden">
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <div class="step" id="step2">
-        <h2>Passo 2</h2>
-        <p>Horas de tela ontem:</p>
-        <select id="q2">
-            <option value="0">Mais de 6 horas</option>
-            <option value="10">Entre 3 e 6 horas</option>
-            <option value="20">Menos de 3 horas</option>
-        </select>
-        <button class="btn-next" onclick="nextStep(3)">Próximo</button>
-    </div>
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+  </div>
 
-    <div class="step" id="step3">
-        <h2>Passo 3</h2>
-        <p>Necessidade de checar notificações:</p>
-        <select id="q3">
-            <option value="0">Sinto o "toque fantasma"</option>
-            <option value="10">Às vezes</option>
-            <option value="20">Raramente ou nunca</option>
-        </select>
-        <button class="btn-next" onclick="nextStep(4)">Próximo</button>
-    </div>
+  <!-- LOADING -->
+  <div id="loading" class="hidden">
+    <h2>Analisando seu padrão mental...</h2>
+  </div>
 
-    <div class="step" id="step4">
-        <h2>Passo 4</h2>
-        <p>Foco em uma leitura de 10 min:</p>
-        <select id="q4">
-            <option value="0">Me distraio logo</option>
-            <option value="10">Consigo com esforço</option>
-            <option value="20">Foco total</option>
-        </select>
-        <button class="btn-next" onclick="nextStep(5)">Próximo</button>
-    </div>
+  <!-- RESULTADO -->
+  <div id="result" class="hidden">
+    <h2 id="resultTitle"></h2>
+    <p id="resultText"></p>
 
-    <div class="step" id="step5">
-        <h2>Passo 5</h2>
-        <p>Cansaço mental ao fim do dia:</p>
-        <select id="q5">
-            <option value="0">Cérebro "frito"</option>
-            <option value="10">Cansado, mas funcional</option>
-            <option value="20">Energia preservada</option>
-        </select>
-        <button class="btn-result" onclick="calcular()">VER MEU RESULTADO</button>
-    </div>
+    <button onclick="redirect()">Ver como resolver isso agora</button>
+  </div>
 
-    <div class="step" id="stepFinal">
-        <h2 id="titulo-res"></h2>
-        <p id="desc-res"></p>
-        <button class="btn-offer" id="btn-dinamico" onclick="irParaProduto()">SOLUÇÃO INDICADA</button>
-        <button style="background:#ddd; color:#333; margin-top:10px" onclick="location.reload()">Refazer Teste</button>
-    </div>
 </div>
 
 <script>
-    let linkFinal = "";
 
-    function nextStep(step) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + step).classList.add('active');
-        document.getElementById('pb').style.width = (step * 20) + "%";
-    }
+const questions = [
+  {
+    q: "Como você se sente ao acordar?",
+    a: [
+      { text: "Animado", score: 1 },
+      { text: "Normal", score: 2 },
+      { text: "Cansado", score: 3 },
+      { text: "Sem vontade", score: 4 }
+    ]
+  },
+  {
+    q: "Sua mente anda mais...",
+    a: [
+      { text: "Focada", score: 1 },
+      { text: "Distraída", score: 3 },
+      { text: "Ansiosa", score: 4 },
+      { text: "Confusa", score: 4 }
+    ]
+  },
+  {
+    q: "Você sente que está evoluindo?",
+    a: [
+      { text: "Sim", score: 1 },
+      { text: "Mais ou menos", score: 2 },
+      { text: "Não", score: 4 }
+    ]
+  },
+  {
+    q: "Você termina o que começa?",
+    a: [
+      { text: "Sempre", score: 1 },
+      { text: "Às vezes", score: 2 },
+      { text: "Quase nunca", score: 4 }
+    ]
+  },
+  {
+    q: "Seu nível de energia é...",
+    a: [
+      { text: "Alto", score: 1 },
+      { text: "Médio", score: 2 },
+      { text: "Baixo", score: 4 }
+    ]
+  }
+];
 
-    function calcular() {
-        let total = parseInt(document.getElementById('q1').value) +
-                    parseInt(document.getElementById('q2').value) +
-                    parseInt(document.getElementById('q3').value) +
-                    parseInt(document.getElementById('q4').value) +
-                    parseInt(document.getElementById('q5').value);
+let current = 0;
+let score = 0;
 
-        nextStep('Final');
-        document.getElementById('pb').style.width = "100%";
-        
-        let titulo = document.getElementById('titulo-res');
-        let desc = document.getElementById('desc-res');
-        let btn = document.getElementById('btn-dinamico');
+function startQuiz() {
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  showQuestion();
+}
 
-        if(total <= 40) {
-            titulo.innerText = "Nível Crítico!";
-            desc.innerText = "Sua dopamina está desregulada. O excesso de telas destruiu seu foco e sua oração. Você precisa do Detox urgente.";
-            btn.innerText = "BAIXAR DETOX DIGITAL";
-            linkFinal = "https://go.hotmart.com/V104583149C";
-        } else if(total <= 70) {
-            titulo.innerText = "Nível Alerta";
-            desc.innerText = "A ansiedade digital está vencendo. Fortaleça sua mente antes que seja tarde.";
-            btn.innerText = "MENTE INABALÁVEL AGORA";
-            linkFinal = "https://go.hotmart.com/K104595453M";
-        } else {
-            titulo.innerText = "Alta Performance";
-            desc.innerText = "Parabéns! Sua rotina de oração e controle é sólida. O Combo Total é para você.";
-            btn.innerText = "COMBO EQUILÍBRIO TOTAL";
-            linkFinal = "https://go.hotmart.com/A104629637C";
-        }
-    }
+function showQuestion() {
+  let q = questions[current];
+  document.getElementById("question").innerText = q.q;
 
-    function irParaProduto() { window.location.href = linkFinal; }
+  let answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  q.a.forEach(ans => {
+    let btn = document.createElement("button");
+    btn.innerText = ans.text;
+    btn.onclick = () => nextQuestion(ans.score);
+    answersDiv.appendChild(btn);
+  });
+
+  updateProgress();
+}
+
+function nextQuestion(s) {
+  score += s;
+  current++;
+
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    showLoading();
+  }
+}
+
+function updateProgress() {
+  let percent = ((current) / questions.length) * 100;
+  document.getElementById("progressBar").style.width = percent + "%";
+}
+
+function showLoading() {
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("loading").classList.remove("hidden");
+
+  setTimeout(showResult, 2000);
+}
+
+function showResult() {
+  document.getElementById("loading").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+
+  let title = "";
+  let text = "";
+
+  if (score <= 7) {
+    title = "Mente Focada";
+    text = "Você já tem um bom controle mental.\n\nMas ainda pode evoluir para um nível onde foco, disciplina e clareza se tornam naturais.\n\nCom as estratégias certas, você acelera ainda mais seus resultados.";
+  } else if (score <= 12) {
+    title = "Mente Distraída";
+    text = "Sua mente perde foco com facilidade, principalmente com excesso de estímulos.\n\nIsso pode estar atrasando sua evolução e te fazendo começar coisas sem terminar.\n\nCom alguns ajustes simples, você consegue recuperar seu foco e disciplina.";
+  } else {
+    title = "Mente Sobrecarregada";
+    text = "Sua mente está consumindo energia demais com pensamentos e estímulos constantes.\n\nIsso pode estar te deixando cansado, sem foco e travado — mesmo sem você perceber.\n\nMas isso não melhora sozinho.\n\nExiste uma forma simples de recuperar o controle mental e reduzir essa sobrecarga no dia a dia.";
+  }
+
+  document.getElementById("resultTitle").innerText = title;
+  document.getElementById("resultText").innerText = text;
+}
+
+function redirect() {
+  let link = "";
+
+  if (score <= 7) {
+    link = "https://go.hotmart.com/A104629637C"; // combo
+  } else if (score <= 12) {
+    link = "https://go.hotmart.com/K104595453M"; // detox
+  } else {
+    link = "https://go.hotmart.com/V104583149C"; // mente inabalável
+  }
+
+  window.location.href = link;
+}
+
 </script>
 
 </body>
