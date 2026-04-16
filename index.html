@@ -22,8 +22,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
@@ -35,6 +35,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid rgba(108, 92, 231, 0.3);
+            margin: 20px;
         }
 
         h1 { font-size: 24px; margin-bottom: 15px; color: #6c5ce7; }
@@ -52,6 +53,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            outline: none;
         }
 
         button:hover {
@@ -89,7 +91,6 @@
             border-left: 5px solid #a29bfe;
         }
 
-        /* Animação de Loading */
         .spinner {
             margin: 20px auto;
             width: 50px;
@@ -212,7 +213,7 @@ function redirect() {
     else if (score <= 14) link = "https://go.hotmart.com/K104595453M";
     else link = "https://go.hotmart.com/V104583149C";
 
-    // GERA O EVENTO NO GOOGLE ADS ANTES DE SAIR
+    // Dispara o evento de conversão para o Google Ads
     gtag('event', 'conversion', {
         'send_to': 'AW-11782297127/finish_quiz',
         'event_callback': function() {
@@ -220,10 +221,10 @@ function redirect() {
         }
     });
 
-    // Fallback de segurança (800ms) para garantir o envio dos dados
+    // Fallback caso a tag demore a responder
     setTimeout(() => {
         window.location.href = link;
-    }, 800);
+    }, 1000);
 }
 </script>
 </body>
