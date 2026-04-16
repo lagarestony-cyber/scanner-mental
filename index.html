@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scanner Mental</title>
 
-<!-- 🔥 GOOGLE ADS TAG -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-SEU_ID"></script>
+<!-- GOOGLE ADS TAG -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-123456789"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-SEU_ID');
+  gtag('config', 'AW-123456789');
 </script>
 
 <style>
@@ -70,7 +70,6 @@ button {
 
 <div class="container">
 
-  <!-- INÍCIO -->
   <div id="start">
     <h1>Sua mente pode estar te sabotando</h1>
     <p>Descubra em 60 segundos seu nível mental</p>
@@ -80,7 +79,6 @@ button {
     <button onclick="startQuiz()">Fazer teste agora</button>
   </div>
 
-  <!-- QUIZ -->
   <div id="quiz" class="hidden">
     <div class="progress">
       <div class="progress-bar" id="progressBar"></div>
@@ -90,12 +88,10 @@ button {
     <div id="answers"></div>
   </div>
 
-  <!-- LOADING -->
   <div id="loading" class="hidden">
     <h2>Analisando seu padrão mental...</h2>
   </div>
 
-  <!-- RESULTADO -->
   <div id="result" class="hidden">
     <h2 id="resultTitle"></h2>
     <p id="resultText"></p>
@@ -234,12 +230,14 @@ function redirect() {
     link = "https://go.hotmart.com/V104583149C";
   }
 
-  // 🔥 DISPARA CONVERSÃO
+  // CONVERSÃO GOOGLE ADS (EXEMPLO)
   gtag('event', 'conversion', {
-    'send_to': 'AW-SEU_ID/CONVERSION_ID'
+    'send_to': 'AW-123456789/AbCdEfGhIjKlMnOp'
   });
 
-  window.location.href = link;
+  setTimeout(() => {
+    window.location.href = link;
+  }, 300);
 }
 
 </script>
