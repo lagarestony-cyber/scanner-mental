@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scanner Mental | Teste de Perfil</title>
+    <meta name="description" content="Descubra em 60 segundos seu nível de sobrecarga mental e como sair disso. Teste grátis e imediato.">
 
+    <!-- Open Graph pra WhatsApp/Instagram -->
+    <meta property="og:title" content="Scanner Mental | Teste de Perfil">
+    <meta property="og:description" content="Sua mente pode estar te sabotando. Descubra em 60 segundos.">
+    <meta property="og:type" content="website">
+
+    <!-- Google tag (gtag.js) - Conta 1 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11782297127"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'AW-11782297127');
+    </script>
+
+    <!-- Google tag (gtag.js) - Conta 2 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-779704420"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-779704420');
     </script>
 
     <style>
@@ -26,7 +42,7 @@
             overflow-x: hidden;
         }
 
-        .container {
+      .container {
             width: 90%;
             max-width: 400px;
             text-align: center;
@@ -62,7 +78,7 @@
             box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
         }
 
-        .progress {
+      .progress {
             height: 10px;
             background: #222;
             margin: 25px 0;
@@ -70,15 +86,15 @@
             overflow: hidden;
         }
 
-        .progress-bar {
+      .progress-bar {
             height: 100%;
             background: #6c5ce7;
             width: 0%;
             transition: width 0.4s ease;
         }
 
-        .hidden { display: none; }
-        
+      .hidden { display: none; }
+
         #answers button {
             background: #2d2d44;
             text-align: left;
@@ -86,12 +102,12 @@
             font-weight: normal;
         }
 
-        #answers button:hover { 
-            background: #3d3d5c; 
+        #answers button:hover {
+            background: #3d3d5c;
             border-left: 5px solid #a29bfe;
         }
 
-        .spinner {
+      .spinner {
             margin: 20px auto;
             width: 50px;
             height: 50px;
@@ -147,8 +163,13 @@ const questions = [
 
 let current = 0;
 let score = 0;
+let resultPerfil = "";
 
 function startQuiz() {
+    gtag('event', 'quiz_start', {
+        'event_category': 'engagement'
+    });
+
     document.getElementById("start").classList.add("hidden");
     document.getElementById("quiz").classList.remove("hidden");
     showQuestion();
@@ -162,13 +183,20 @@ function showQuestion() {
     q.a.forEach(ans => {
         let btn = document.createElement("button");
         btn.innerText = ans.text;
-        btn.onclick = () => nextQuestion(ans.score);
+        btn.onclick = () => nextQuestion(ans.score, ans.text);
         answersDiv.appendChild(btn);
     });
     updateProgress();
 }
 
-function nextQuestion(s) {
+function nextQuestion(s, answerText) {
+    gtag('event', 'quiz_question_view', {
+        'event_category': 'engagement',
+        'question_number': current + 1,
+        'question_text': questions[current].q,
+        'answer_text': answerText
+    });
+
     score += s;
     current++;
     if (current < questions.length) {
@@ -196,15 +224,24 @@ function showResult() {
     if (score <= 7) {
         title = "Mente em Equilíbrio";
         text = "Sua base é sólida, mas você pode atingir a alta performance com os ajustes certos.";
+        resultPerfil = "equilibrio";
     } else if (score <= 14) {
         title = "Mente em Desalinho";
         text = "Sua dopamina está desregulada. Você perde o foco fácil e procrastina tarefas importantes.";
+        resultPerfil = "desalinho";
     } else {
         title = "Mente em Burnout";
         text = "Seu cérebro está operando no limite. Você precisa de um reset químico urgente.";
+        resultPerfil = "burnout";
     }
     document.getElementById("resultTitle").innerText = title;
     document.getElementById("resultText").innerText = text;
+
+    gtag('event', 'quiz_complete', {
+        'event_category': 'engagement',
+        'perfil': resultPerfil,
+        'score_final': score
+    });
 }
 
 function redirect() {
@@ -213,9 +250,12 @@ function redirect() {
     else if (score <= 14) link = "https://go.hotmart.com/K104595453M";
     else link = "https://go.hotmart.com/V104583149C";
 
-    // Dispara o evento de conversão para o Google Ads
+    // Dispara conversão pra conta AW-11782297127
     gtag('event', 'conversion', {
         'send_to': 'AW-11782297127/finish_quiz',
+        'perfil_resultado': resultPerfil,
+        'value': 1.0,
+        'currency': 'BRL',
         'event_callback': function() {
             window.location.href = link;
         }
