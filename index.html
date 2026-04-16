@@ -1,246 +1,230 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scanner Mental</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Mental | Teste de Perfil</title>
 
-<!-- GOOGLE ADS TAG -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-123456789"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11782297127"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-11782297127');
+    </script>
 
-  gtag('config', 'AW-123456789');
-</script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f0f1a;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
 
-.container {
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
+        h1 { font-size: 24px; margin-bottom: 15px; color: #6c5ce7; }
+        p { font-size: 16px; line-height: 1.6; color: #ccc; }
 
-button {
-  padding: 15px;
-  width: 100%;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #6c5ce7;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
+        button {
+            padding: 18px;
+            width: 100%;
+            margin-top: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #6c5ce7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.progress {
-  height: 5px;
-  background: #333;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  overflow: hidden;
-}
+        button:hover {
+            background: #5b4cc4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
 
-.progress-bar {
-  height: 5px;
-  background: #6c5ce7;
-  width: 0%;
-  transition: 0.3s;
-}
+        .progress {
+            height: 10px;
+            background: #222;
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-.hidden {
-  display: none;
-}
-</style>
+        .progress-bar {
+            height: 100%;
+            background: #6c5ce7;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .hidden { display: none; }
+        
+        #answers button {
+            background: #2d2d44;
+            text-align: left;
+            padding-left: 20px;
+            font-weight: normal;
+        }
+
+        #answers button:hover { 
+            background: #3d3d5c; 
+            border-left: 5px solid #a29bfe;
+        }
+
+        /* Animação de Loading */
+        .spinner {
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #6c5ce7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
-
-  <div id="start">
-    <h1>Sua mente pode estar te sabotando</h1>
-    <p>Descubra em 60 segundos seu nível mental</p>
-
-    <p>✔ Sem cadastro<br>✔ Resultado imediato<br>✔ Leva menos de 1 minuto</p>
-
-    <button onclick="startQuiz()">Fazer teste agora</button>
-  </div>
-
-  <div id="quiz" class="hidden">
-    <div class="progress">
-      <div class="progress-bar" id="progressBar"></div>
+    <div id="start">
+        <h1>Sua mente pode estar te sabotando</h1>
+        <p>Descubra em 60 segundos seu nível de sobrecarga mental.</p>
+        <div style="font-size: 14px; background: rgba(108, 92, 231, 0.1); padding: 15px; border-radius: 12px; margin: 20px 0; color: #a29bfe; border: 1px dashed #6c5ce7;">
+            ✔ Sem cadastro • ✔ Imediato • ✔ Grátis
+        </div>
+        <button onclick="startQuiz()">Fazer teste agora</button>
     </div>
 
-    <h2 id="question"></h2>
-    <div id="answers"></div>
-  </div>
+    <div id="quiz" class="hidden">
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <h2 id="question" style="font-size: 20px; margin-bottom: 25px;"></h2>
+        <div id="answers"></div>
+    </div>
 
-  <div id="loading" class="hidden">
-    <h2>Analisando seu padrão mental...</h2>
-  </div>
+    <div id="loading" class="hidden">
+        <div class="spinner"></div>
+        <h2>Analisando seus padrões...</h2>
+        <p>Aguarde um instante.</p>
+    </div>
 
-  <div id="result" class="hidden">
-    <h2 id="resultTitle"></h2>
-    <p id="resultText"></p>
-
-    <button onclick="redirect()">Ver como resolver isso agora</button>
-  </div>
-
+    <div id="result" class="hidden">
+        <h2 id="resultTitle" style="color: #a29bfe; font-size: 26px;"></h2>
+        <p id="resultText" style="margin: 20px 0 30px 0; font-size: 18px;"></p>
+        <button onclick="redirect()">Ver Solução para meu Perfil</button>
+    </div>
 </div>
 
 <script>
-
 const questions = [
-  {
-    q: "Como você se sente ao acordar?",
-    a: [
-      { text: "Animado", score: 1 },
-      { text: "Normal", score: 2 },
-      { text: "Cansado", score: 3 },
-      { text: "Sem vontade", score: 4 }
-    ]
-  },
-  {
-    q: "Sua mente anda mais...",
-    a: [
-      { text: "Focada", score: 1 },
-      { text: "Distraída", score: 3 },
-      { text: "Ansiosa", score: 4 },
-      { text: "Confusa", score: 4 }
-    ]
-  },
-  {
-    q: "Você sente que está evoluindo?",
-    a: [
-      { text: "Sim", score: 1 },
-      { text: "Mais ou menos", score: 2 },
-      { text: "Não", score: 4 }
-    ]
-  },
-  {
-    q: "Você termina o que começa?",
-    a: [
-      { text: "Sempre", score: 1 },
-      { text: "Às vezes", score: 2 },
-      { text: "Quase nunca", score: 4 }
-    ]
-  },
-  {
-    q: "Seu nível de energia é...",
-    a: [
-      { text: "Alto", score: 1 },
-      { text: "Médio", score: 2 },
-      { text: "Baixo", score: 4 }
-    ]
-  }
+    { q: "Como você se sente ao acordar?", a: [{text: "Animado e disposto", score: 1}, {text: "Normal", score: 2}, {text: "Cansado", score: 3}, {text: "Sem vontade de levantar", score: 4}] },
+    { q: "Sua mente anda mais...", a: [{text: "Focada no presente", score: 1}, {text: "Distraída / Sonhando acordado", score: 3}, {text: "Ansiosa / Pensando no futuro", score: 4}, {text: "Confusa / Muitas ideias", score: 4}] },
+    { q: "Você sente que está evoluindo?", a: [{text: "Sim, todos os dias", score: 1}, {text: "Sinto que estou estagnado", score: 3}, {text: "Sinto que estou andando para trás", score: 4}] },
+    { q: "Você termina o que começa?", a: [{text: "Sempre termino tudo", score: 1}, {text: "Às vezes deixo pela metade", score: 3}, {text: "Quase nunca consigo terminar", score: 4}] },
+    { q: "Seu nível de energia no fim do dia é...", a: [{text: "Ainda tenho energia", score: 1}, {text: "Estou esgotado mentalmente", score: 4}] }
 ];
 
 let current = 0;
 let score = 0;
 
 function startQuiz() {
-  document.getElementById("start").classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
-  showQuestion();
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+    showQuestion();
 }
 
 function showQuestion() {
-  let q = questions[current];
-  document.getElementById("question").innerText = q.q;
-
-  let answersDiv = document.getElementById("answers");
-  answersDiv.innerHTML = "";
-
-  q.a.forEach(ans => {
-    let btn = document.createElement("button");
-    btn.innerText = ans.text;
-    btn.onclick = () => nextQuestion(ans.score);
-    answersDiv.appendChild(btn);
-  });
-
-  updateProgress();
+    let q = questions[current];
+    document.getElementById("question").innerText = q.q;
+    let answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
+    q.a.forEach(ans => {
+        let btn = document.createElement("button");
+        btn.innerText = ans.text;
+        btn.onclick = () => nextQuestion(ans.score);
+        answersDiv.appendChild(btn);
+    });
+    updateProgress();
 }
 
 function nextQuestion(s) {
-  score += s;
-  current++;
-
-  if (current < questions.length) {
-    showQuestion();
-  } else {
-    showLoading();
-  }
+    score += s;
+    current++;
+    if (current < questions.length) {
+        showQuestion();
+    } else {
+        showLoading();
+    }
 }
 
 function updateProgress() {
-  let percent = ((current) / questions.length) * 100;
-  document.getElementById("progressBar").style.width = percent + "%";
+    let percent = (current / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
 }
 
 function showLoading() {
-  document.getElementById("quiz").classList.add("hidden");
-  document.getElementById("loading").classList.remove("hidden");
-
-  setTimeout(showResult, 2000);
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("loading").classList.remove("hidden");
+    setTimeout(showResult, 2500);
 }
 
 function showResult() {
-  document.getElementById("loading").classList.add("hidden");
-  document.getElementById("result").classList.remove("hidden");
-
-  let title = "";
-  let text = "";
-
-  if (score <= 7) {
-    title = "Mente Focada";
-    text = "Você já tem um bom controle mental, mas pode evoluir ainda mais com estratégias certas.";
-  } else if (score <= 12) {
-    title = "Mente Distraída";
-    text = "Sua mente perde foco com facilidade. Pequenos ajustes podem mudar completamente seu desempenho.";
-  } else {
-    title = "Mente Sobrecarregada";
-    text = "Sua mente está consumindo energia demais. Isso pode estar te travando sem você perceber.";
-  }
-
-  document.getElementById("resultTitle").innerText = title;
-  document.getElementById("resultText").innerText = text;
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+    let title = "", text = "";
+    if (score <= 7) {
+        title = "Mente em Equilíbrio";
+        text = "Sua base é sólida, mas você pode atingir a alta performance com os ajustes certos.";
+    } else if (score <= 14) {
+        title = "Mente em Desalinho";
+        text = "Sua dopamina está desregulada. Você perde o foco fácil e procrastina tarefas importantes.";
+    } else {
+        title = "Mente em Burnout";
+        text = "Seu cérebro está operando no limite. Você precisa de um reset químico urgente.";
+    }
+    document.getElementById("resultTitle").innerText = title;
+    document.getElementById("resultText").innerText = text;
 }
 
 function redirect() {
-  let link = "";
+    let link = "";
+    if (score <= 7) link = "https://go.hotmart.com/A104629637C";
+    else if (score <= 14) link = "https://go.hotmart.com/K104595453M";
+    else link = "https://go.hotmart.com/V104583149C";
 
-  if (score <= 7) {
-    link = "https://go.hotmart.com/A104629637C";
-  } else if (score <= 12) {
-    link = "https://go.hotmart.com/K104595453M";
-  } else {
-    link = "https://go.hotmart.com/V104583149C";
-  }
+    // GERA O EVENTO NO GOOGLE ADS ANTES DE SAIR
+    gtag('event', 'conversion', {
+        'send_to': 'AW-11782297127/finish_quiz',
+        'event_callback': function() {
+            window.location.href = link;
+        }
+    });
 
-  // CONVERSÃO GOOGLE ADS (EXEMPLO)
-  gtag('event', 'conversion', {
-    'send_to': 'AW-123456789/AbCdEfGhIjKlMnOp'
-  });
-
-  setTimeout(() => {
-    window.location.href = link;
-  }, 300);
+    // Fallback de segurança (800ms) para garantir o envio dos dados
+    setTimeout(() => {
+        window.location.href = link;
+    }, 800);
 }
-
 </script>
-
 </body>
 </html>
