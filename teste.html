@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Mental | Diagnóstico de Perfil</title>
+    <meta name="description" content="Descubra em 60 segundos seu nível de sobrecarga mental e como sair disso. Teste grátis e imediato.">
+
+    <meta property="og:title" content="Scanner Mental | Diagnóstico de Perfil">
+    <meta property="og:description" content="Sua mente pode estar travando. Descubra em 60 segundos o nível de sobrecarga.">
+    <meta property="og:type" content="website">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11782297127"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-11782297127');
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-779704420"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-779704420');
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            margin: 20px;
+        }
+
+        h1 { font-size: 24px; margin-bottom: 15px; color: #6c5ce7; }
+        p { font-size: 16px; line-height: 1.6; color: #ccc; }
+
+        button {
+            padding: 18px;
+            width: 100%;
+            margin-top: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #6c5ce7;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        button:hover {
+            background: #5b4cc4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .progress {
+            height: 10px;
+            background: #222;
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #6c5ce7;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .hidden { display: none; }
+
+        #answers button {
+            background: #2d2d44;
+            text-align: left;
+            padding-left: 20px;
+            font-weight: normal;
+        }
+
+        #answers button:hover {
+            background: #3d3d5c;
+            border-left: 5px solid #a29bfe;
+        }
+
+        .spinner {
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #6c5ce7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="start">
+        <h1>Sua mente pode estar travando</h1>
+        <p>Descubra em 60 segundos o nível de sobrecarga do seu cérebro e como dar um "reset".</p>
+        <div style="font-size: 14px; background: rgba(108, 92, 231, 0.1); padding: 15px; border-radius: 12px; margin: 20px 0; color: #a29bfe; border: 1px dashed #6c5ce7;">
+            ✔ Diagnóstico Imediato • ✔ Grátis • ✔ Sem Cadastro
+        </div>
+        <button onclick="startQuiz()">Iniciar Scanner Mental</button>
+    </div>
+
+    <div id="quiz" class="hidden">
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <h2 id="question" style="font-size: 20px; margin-bottom: 25px;"></h2>
+        <div id="answers"></div>
+    </div>
+
+    <div id="loading" class="hidden">
+        <div class="spinner"></div>
+        <h2>Escaneando padrões neurais...</h2>
+        <p>Aguarde um instante.</p>
+    </div>
+
+    <div id="result" class="hidden">
+        <h2 id="resultTitle" style="color: #a29bfe; font-size: 26px;"></h2>
+        <p id="resultText" style="margin: 20px 0 30px 0; font-size: 18px;"></p>
+        <button onclick="redirect()">Ver Solução para meu Perfil</button>
+    </div>
+</div>
+
+<script>
+// PERGUNTAS QUE MEXEM COM A MENTE (CÉREBRO TRAVADO)
+const questions = [
+    { 
+        q: "Qual é o seu nível de disposição nos primeiros minutos após acordar?", 
+        a: [
+            {text: "Acordo com foco total", score: 1}, 
+            {text: "Normal, mas já busco o celular", score: 2}, 
+            {text: "Exausto, como se não tivesse dormido", score: 4}, 
+            {text: "Ansiedade com o peso das tarefas", score: 4}
+        ] 
+    },
+    { 
+        q: "Ao tentar realizar uma tarefa difícil, o que acontece com você?", 
+        a: [
+            {text: "Mantenho o foco até terminar", score: 1}, 
+            {text: "Qualquer notificação me faz desviar", score: 3}, 
+            {text: "Minha própria mente foge do foco", score: 4}, 
+            {text: "Sinto um cansaço mental imediato", score: 4}
+        ] 
+    },
+    { 
+        q: "Como você avalia sua relação atual com as redes sociais (Reels/TikTok)?", 
+        a: [
+            {text: "Uso pouco, sou bem controlado(a)", score: 1}, 
+            {text: "Sinto que perco tempo demais nelas", score: 3}, 
+            {text: "Uso para 'esquecer' os problemas", score: 4}, 
+            {text: "Sinto ansiedade se fico desconectado(a)", score: 4}
+        ] 
+    },
+    { 
+        q: "Com que frequência você sente que o seu 'cérebro travou' ou dá um branco total?", 
+        a: [
+            {text: "Raramente, raciocínio rápido", score: 1}, 
+            {text: "Às vezes, quando o dia está pesado", score: 3}, 
+            {text: "Sempre, sinto minha mente lenta", score: 4}, 
+            {text: "Vivo em um eterno 'branco' mental", score: 4}
+        ] 
+    },
+    { 
+        q: "Se você tivesse que ficar 24h sem celular e PC hoje, como se sentiria?", 
+        a: [
+            {text: "Tranquilo(a), seria um descanso", score: 1}, 
+            {text: "Um pouco entediado(a), mas ok", score: 3}, 
+            {text: "Totalmente perdido(a) e ansioso(a)", score: 4},
+            {text: "Impossível, me sinto dependente", score: 4}
+        ] 
+    }
+];
+
+let current = 0;
+let score = 0;
+let resultPerfil = "";
+
+function startQuiz() {
+    gtag('event', 'quiz_start', { 'event_category': 'engagement' });
+
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+    showQuestion();
+}
+
+function showQuestion() {
+    let q = questions[current];
+    document.getElementById("question").innerText = q.q;
+    let answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
+    q.a.forEach(ans => {
+        let btn = document.createElement("button");
+        btn.innerText = ans.text;
+        btn.onclick = () => nextQuestion(ans.score, ans.text);
+        answersDiv.appendChild(btn);
+    });
+    updateProgress();
+}
+
+function nextQuestion(s, answerText) {
+    gtag('event', 'quiz_question_view', {
+        'event_category': 'engagement',
+        'question_number': current + 1,
+        'question_text': questions[current].q,
+        'answer_text': answerText
+    });
+
+    score += s;
+    current++;
+    if (current < questions.length) {
+        showQuestion();
+    } else {
+        showLoading();
+    }
+}
+
+function updateProgress() {
+    let percent = (current / questions.length) * 100;
+    document.getElementById("progressBar").style.width = percent + "%";
+}
+
+function showLoading() {
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("loading").classList.remove("hidden");
+    setTimeout(showResult, 2500);
+}
+
+function showResult() {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+    
+    let title = "", text = "";
+    
+    if (score <= 8) {
+        title = "Mente sob Controle";
+        text = "Você tem uma base sólida, mas pode atingir a alta performance. O segredo está em blindar sua mente contra distrações externas.";
+        resultPerfil = "equilibrio";
+    } else if (score <= 15) {
+        title = "Dependência Digital Detectada";
+        text = "O Scanner identificou que o seu cérebro está viciado em dopamina barata. Isso trava seu foco e drena sua energia diária.";
+        resultPerfil = "desalinho";
+    } else {
+        title = "Esgotamento Neural Crítico";
+        text = "Alerta: Seu cérebro está operando no limite. Você sofre de fadiga crônica e sobrecarga de estímulos. Um 'reset' é urgente.";
+        resultPerfil = "burnout";
+    }
+
+    document.getElementById("resultTitle").innerText = title;
+    document.getElementById("resultText").innerText = text;
+
+    gtag('event', 'quiz_complete', {
+        'event_category': 'engagement',
+        'perfil': resultPerfil,
+        'score_final': score
+    });
+}
+
+function redirect() {
+    let link = "";
+    
+    // REDIRECIONAMENTO POR NECESSIDADE (Mente, Detox ou Combo)
+    if (score <= 8) {
+        link = "https://go.hotmart.com/V104583149C"; // Mente Inabalável
+    } else if (score <= 15) {
+        link = "https://go.hotmart.com/A104629637C"; // Detox Digital
+    } else {
+        // LINK DO COMBO (Mente + Detox) - Se ainda não tiver, use o mais urgente
+        link = "https://go.hotmart.com/V104583149C"; 
+    }
+
+    // Dispara conversão pra conta AW-11782297127
+    gtag('event', 'conversion', {
+        'send_to': 'AW-11782297127/finish_quiz',
+        'perfil_resultado': resultPerfil,
+        'value': 1.0,
+        'currency': 'BRL',
+        'event_callback': function() {
+            window.location.href = link;
+        }
+    });
+
+    // Fallback de segurança
+    setTimeout(() => {
+        window.location.href = link;
+    }, 1000);
+}
+</script>
+</body>
+</html>
