@@ -1,271 +1,338 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scanner Mental | Teste de Perfil</title>
-    <meta name="description" content="Descubra em 60 segundos seu nível de sobrecarga mental e como sair disso. Teste grátis e imediato.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Scanner Mental</title>
 
-    <!-- Open Graph pra WhatsApp/Instagram -->
-    <meta property="og:title" content="Scanner Mental | Teste de Perfil">
-    <meta property="og:description" content="Sua mente pode estar te sabotando. Descubra em 60 segundos.">
-    <meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-    <!-- Google tag (gtag.js) - Conta 1 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11782297127"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-11782297127');
-    </script>
+<!-- Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-779704420"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-779704420');
+</script>
 
-    <!-- Google tag (gtag.js) - Conta 2 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-779704420"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-779704420');
-    </script>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #0f0f1a;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-      .container {
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(108, 92, 231, 0.3);
-            margin: 20px;
-        }
-
-        h1 { font-size: 24px; margin-bottom: 15px; color: #6c5ce7; }
-        p { font-size: 16px; line-height: 1.6; color: #ccc; }
-
-        button {
-            padding: 18px;
-            width: 100%;
-            margin-top: 15px;
-            border: none;
-            border-radius: 12px;
-            background: #6c5ce7;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        button:hover {
-            background: #5b4cc4;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
-        }
-
-      .progress {
-            height: 10px;
-            background: #222;
-            margin: 25px 0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-      .progress-bar {
-            height: 100%;
-            background: #6c5ce7;
-            width: 0%;
-            transition: width 0.4s ease;
-        }
-
-      .hidden { display: none; }
-
-        #answers button {
-            background: #2d2d44;
-            text-align: left;
-            padding-left: 20px;
-            font-weight: normal;
-        }
-
-        #answers button:hover {
-            background: #3d3d5c;
-            border-left: 5px solid #a29bfe;
-        }
-
-      .spinner {
-            margin: 20px auto;
-            width: 50px;
-            height: 50px;
-            border: 5px solid #333;
-            border-top: 5px solid #6c5ce7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+<style>
+body { font-family: 'Inter', sans-serif; }
+.gradient { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.gradient-btn { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+.card { transition:.2s; }
+.card:active { transform: scale(.97); }
+.pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%{opacity:1;} 50%{opacity:.7;} 100%{opacity:1;} }
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.shake { animation: shake 0.5s; }
+</style>
 </head>
 
-<body>
+<body class="gradient min-h-screen flex items-center justify-center p-4 text-gray-800">
 
-<div class="container">
-    <div id="start">
-        <h1>Sua mente pode estar te sabotando</h1>
-        <p>Descubra em 60 segundos seu nível de sobrecarga mental.</p>
-        <div style="font-size: 14px; background: rgba(108, 92, 231, 0.1); padding: 15px; border-radius: 12px; margin: 20px 0; color: #a29bfe; border: 1px dashed #6c5ce7;">
-            ✔ Sem cadastro • ✔ Imediato • ✔ Grátis
+<!-- TELA 1: LANDING -->
+<div id="landing" class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
+    
+    <div class="flex justify-center -mt-16 mb-4">
+        <div class="gradient w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
         </div>
-        <button onclick="startQuiz()">Fazer teste agora</button>
     </div>
 
-    <div id="quiz" class="hidden">
-        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-        <h2 id="question" style="font-size: 20px; margin-bottom: 25px;"></h2>
-        <div id="answers"></div>
+    <h1 class="text-3xl font-extrabold text-center mb-2 text-indigo-600">Scanner Mental</h1>
+    <p class="text-center text-gray-600 mb-2 font-semibold">Em 60seg faça um teste e veja como está seu cérebro</p>
+    <p class="text-center text-xs text-gray-500 mb-6">🛡️ 100% Gratuito e Anônimo</p>
+
+    <div class="bg-indigo-50 rounded-xl p-4 mb-6">
+        <p class="font-bold text-sm mb-3">⚡ Em 60 segundos você descobre:</p>
+        <div class="space-y-2 text-sm text-gray-700">
+            <div class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span>Seu nível de uso do celular de 0 a 100%</span>
+            </div>
+            <div class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span>Quais hábitos digitais mais tomam seu tempo</span>
+            </div>
+            <div class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span>Dicas práticas para ter mais foco no dia a dia</span>
+            </div>
+        </div>
     </div>
 
-    <div id="loading" class="hidden">
-        <div class="spinner"></div>
-        <h2>Analisando seus padrões...</h2>
-        <p>Aguarde um instante.</p>
-    </div>
+    <button onclick="startQuiz()" class="w-full gradient-btn text-white py-4 rounded-xl font-bold text-lg shadow-lg pulse">
+        Começar Scanner Agora →
+    </button>
 
-    <div id="result" class="hidden">
-        <h2 id="resultTitle" style="color: #a29bfe; font-size: 26px;"></h2>
-        <p id="resultText" style="margin: 20px 0 30px 0; font-size: 18px;"></p>
-        <button onclick="redirect()">Ver Solução para meu Perfil</button>
-    </div>
+    <p class="text-center text-xs text-gray-500 mt-4">
+        👥 <span id="people-count">+47.283</span> pessoas já fizeram o teste esta semana
+    </p>
+
 </div>
 
+<!-- TELA 2: QUIZ -->
+<div id="quiz" class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl hidden">
+    <div id="progress-text" class="text-center text-sm text-gray-500 mb-2">Pergunta 1 de 8</div>
+
+    <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+        <div id="bar" class="gradient-btn h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+    </div>
+
+    <div id="question" class="text-xl font-bold mb-6"></div>
+    <div id="options" class="space-y-3"></div>
+</div>
+
+<!-- TELA 3: RESULTADO -->
+<div id="result" class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl hidden">
+    <div class="flex justify-center -mt-16 mb-4">
+        <div id="result-icon" class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
+        </div>
+    </div>
+
+    <h2 class="text-2xl font-extrabold text-center mb-2">Seu Diagnóstico</h2>
+    <div id="score" class="text-6xl font-extrabold text-center mb-2"></div>
+    <div id="level" class="text-xl font-bold text-center mb-4"></div>
+    <p id="desc" class="text-center mb-6 text-gray-700 text-sm"></p>
+
+    <button onclick="ctaClick()" class="w-full gradient-btn text-white py-4 rounded-xl font-bold text-lg shadow-lg pulse">
+        Quero Recuperar Meu Foco Agora
+    </button>
+
+    <p class="text-center text-xs text-gray-500 mt-4">
+        👥 <span id="people-count-2">+47.283</span> pessoas já liberaram o protocolo
+    </p>
+</div>
+
+<!-- NOTIFICAÇÃO -->
+<div id="toast" class="toast hidden bg-black text-white px-4 py-2 rounded-lg text-sm"></div>
+
 <script>
+let q = 0;
+let answers = [];
+let finalLink = "";
+
 const questions = [
-    { q: "Como você se sente ao acordar?", a: [{text: "Animado e disposto", score: 1}, {text: "Normal", score: 2}, {text: "Cansado", score: 3}, {text: "Sem vontade de levantar", score: 4}] },
-    { q: "Sua mente anda mais...", a: [{text: "Focada no presente", score: 1}, {text: "Distraída / Sonhando acordado", score: 3}, {text: "Ansiosa / Pensando no futuro", score: 4}, {text: "Confusa / Muitas ideias", score: 4}] },
-    { q: "Você sente que está evoluindo?", a: [{text: "Sim, todos os dias", score: 1}, {text: "Sinto que estou estagnado", score: 3}, {text: "Sinto que estou andando para trás", score: 4}] },
-    { q: "Você termina o que começa?", a: [{text: "Sempre termino tudo", score: 1}, {text: "Às vezes deixo pela metade", score: 3}, {text: "Quase nunca consigo terminar", score: 4}] },
-    { q: "Seu nível de energia no fim do dia é...", a: [{text: "Ainda tenho energia", score: 1}, {text: "Estou esgotado mentalmente", score: 4}] }
+{
+q:"Qual a primeira coisa que você faz ao acordar?",
+a:[
+"Levanto e começo o dia",
+"Vejo a hora no celular",
+"Fico nas redes sociais",
+"Já acordo mexendo no celular"
+]
+},
+{
+q:"Quando abre Instagram/TikTok pra ver 1 coisa, o que acontece?",
+a:[
+"Vejo e fecho na hora",
+"Rolo o feed por 5-10min",
+"Fico 30min+ sem perceber",
+"Perco 1h ou mais todo dia"
+]
+},
+{
+q:"Sobre vídeos curtos: Shorts, Reels, TikTok...",
+a:[
+"Não assisto, acho perda de tempo",
+"Vejo alguns quando aparecem",
+"Não consigo parar, sempre tem +1 vídeo",
+"Acordo de madrugada pra ver mais"
+]
+},
+{
+q:"Você pega o celular achando que vibrou, mas não tinha nada?",
+a:[
+"Nunca aconteceu comigo",
+"Raramente, 1x no mês",
+"Toda semana acontece",
+"Todo dia, várias vezes"
+]
+},
+{
+q:"Você se compara com outras pessoas nas redes sociais?",
+a:[
+"Nunca",
+"Raramente",
+"Frequentemente",
+"Sempre"
+]
+},
+{
+q:"Você perde o foco facilmente durante o dia?",
+a:[
+"Nunca",
+"Às vezes",
+"Frequentemente",
+"Sempre"
+]
+},
+{
+q:"Você acorda cansado mesmo após dormir?",
+a:[
+"Nunca",
+"Às vezes",
+"Quase sempre",
+"Sempre"
+]
+},
+{
+q:"Nos últimos 30 dias você sentiu:",
+a:[
+"Disposto e focado normalmente",
+"Um pouco de ansiedade às vezes",
+"Comparação com outros + perda de foco",
+"Ansiedade + comparação + sem foco + desânimo diariamente"
+]
+}
 ];
 
-let current = 0;
-let score = 0;
-let resultPerfil = "";
-
-function startQuiz() {
-    gtag('event', 'quiz_start', {
-        'event_category': 'engagement'
-    });
-
-    document.getElementById("start").classList.add("hidden");
+function startQuiz(){
+    document.getElementById("landing").classList.add("hidden");
     document.getElementById("quiz").classList.remove("hidden");
-    showQuestion();
+    gtag('event', 'begin_quiz');
+    render();
 }
 
-function showQuestion() {
-    let q = questions[current];
-    document.getElementById("question").innerText = q.q;
-    let answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
-    q.a.forEach(ans => {
-        let btn = document.createElement("button");
-        btn.innerText = ans.text;
-        btn.onclick = () => nextQuestion(ans.score, ans.text);
-        answersDiv.appendChild(btn);
-    });
-    updateProgress();
-}
+function render(){
+    let data = questions[q];
+    document.getElementById("question").innerText = data.q;
+    document.getElementById("progress-text").innerText = `Pergunta ${q+1} de ${questions.length}`;
 
-function nextQuestion(s, answerText) {
-    gtag('event', 'quiz_question_view', {
-        'event_category': 'engagement',
-        'question_number': current + 1,
-        'question_text': questions[current].q,
-        'answer_text': answerText
+    let percent = (q/questions.length)*100;
+    document.getElementById("bar").style.width = percent+"%";
+
+    let html = "";
+    data.a.forEach((opt,i)=>{
+        html += `
+        <div onclick="answer(${i})" class="card border-2 border-gray-200 p-4 rounded-xl cursor-pointer bg-gray-50 hover:bg-indigo-50 hover:border-indigo-300">
+            ${opt}
+        </div>`;
     });
 
-    score += s;
-    current++;
-    if (current < questions.length) {
-        showQuestion();
-    } else {
-        showLoading();
-    }
+    document.getElementById("options").innerHTML = html;
 }
 
-function updateProgress() {
-    let percent = (current / questions.length) * 100;
-    document.getElementById("progressBar").style.width = percent + "%";
-}
+function answer(i){
+    answers[q] = i;
+    if(navigator.vibrate) navigator.vibrate(30);
 
-function showLoading() {
-    document.getElementById("quiz").classList.add("hidden");
-    document.getElementById("loading").classList.remove("hidden");
-    setTimeout(showResult, 2500);
-}
-
-function showResult() {
-    document.getElementById("loading").classList.add("hidden");
-    document.getElementById("result").classList.remove("hidden");
-    let title = "", text = "";
-    if (score <= 7) {
-        title = "Mente em Equilíbrio";
-        text = "Sua base é sólida, mas você pode atingir a alta performance com os ajustes certos.";
-        resultPerfil = "equilibrio";
-    } else if (score <= 14) {
-        title = "Mente em Desalinho";
-        text = "Sua dopamina está desregulada. Você perde o foco fácil e procrastina tarefas importantes.";
-        resultPerfil = "desalinho";
-    } else {
-        title = "Mente em Burnout";
-        text = "Seu cérebro está operando no limite. Você precisa de um reset químico urgente.";
-        resultPerfil = "burnout";
-    }
-    document.getElementById("resultTitle").innerText = title;
-    document.getElementById("resultText").innerText = text;
-
-    gtag('event', 'quiz_complete', {
-        'event_category': 'engagement',
-        'perfil': resultPerfil,
-        'score_final': score
-    });
-}
-
-function redirect() {
-    let link = "";
-    if (score <= 7) link = "https://go.hotmart.com/A104629637C";
-    else if (score <= 14) link = "https://go.hotmart.com/K104595453M";
-    else link = "https://go.hotmart.com/V104583149C";
-
-    // Dispara conversão pra conta AW-11782297127
-    gtag('event', 'conversion', {
-        'send_to': 'AW-11782297127/finish_quiz',
-        'perfil_resultado': resultPerfil,
-        'value': 1.0,
-        'currency': 'BRL',
-        'event_callback': function() {
-            window.location.href = link;
+    setTimeout(()=>{
+        q++;
+        if(q < questions.length){
+            render();
+        } else {
+            finish();
         }
+    },300);
+}
+
+function finish(){
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+
+    let totalPoints = answers.reduce((a,b)=>a+b,0);
+    let maxPoints = questions.length * 3;
+    let score = Math.round((totalPoints/maxPoints)*100);
+
+    let level = "";
+    let desc = "";
+    let value = 97;
+    let icon = "";
+    let color = "";
+    let isCritical = false;
+
+    if (totalPoints <= 7) {
+        level = "Uso Consciente";
+        desc = "Você mantém bons hábitos digitais. Veja como otimizar ainda mais seu tempo e produtividade no dia a dia.";
+        value = 97;
+        finalLink = "https://go.hotmart.com/K104595453M";
+        icon = `<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
+        color = "bg-green-500";
+    } else if (totalPoints <= 16) {
+        level = "Uso Moderado";
+        desc = "Alguns hábitos digitais estão tomando mais tempo que o ideal. Descubra como recuperar 2-3h do seu dia.";
+        value = 147;
+        finalLink = "https://go.hotmart.com/A104629637C";
+        icon = `<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
+        color = "bg-yellow-500";
+    } else {
+        level = "Uso Intenso";
+        desc = "Seu tempo de tela está acima da média. Veja estratégias práticas para melhorar seu foco e produtividade.";
+        value = 297;
+        finalLink = "https://go.hotmart.com/V104583149C";
+        icon = `<div class="text-4xl">😰</div>`;
+        color = "bg-red-500";
+        isCritical = true;
+    }
+
+    document.getElementById("score").innerText = score + "%";
+    document.getElementById("level").innerText = level;
+    document.getElementById("level").className = `text-xl font-bold text-center mb-4 ${color.replace('bg-', 'text-')}`;
+    document.getElementById("desc").innerText = desc;
+    document.getElementById("result-icon").innerHTML = icon;
+    document.getElementById("result-icon").className = `w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${color}`;
+
+    // CONVERSÃO COM TEU LABEL REAL + VALOR DINÂMICO
+    gtag('event','conversion',{
+        'send_to':'AW-779704420/NFZPCOXG9Z4cEOSw5fMC',
+        'value': value,
+        'currency':'BRL',
+        'transaction_id': `scanner-${Date.now()}`
     });
 
-    // Fallback caso a tag demore a responder
-    setTimeout(() => {
-        window.location.href = link;
-    }, 1000);
+    gtag('event','quiz_result',{
+        'level': level,
+        'points': totalPoints,
+        'value': value
+    });
+
+    if(!isCritical){
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    } else {
+        document.getElementById("result").classList.add("shake");
+    }
 }
+
+function ctaClick(){
+    window.location.href = finalLink;
+}
+
+// PROVA SOCIAL DINÂMICA
+let people = 47283;
+setInterval(()=>{
+    people += Math.floor(Math.random()*3);
+    let formatted = "+" + people.toLocaleString('pt-BR');
+    document.getElementById("people-count").innerText = formatted;
+    if(document.getElementById("people-count-2")){
+        document.getElementById("people-count-2").innerText = formatted;
+    }
+},2000);
+
+// NOTIFICAÇÕES FAKE
+const names = ["João","Maria","Carlos","Ana","Lucas","Fernanda","Beatriz","Rafael","Pedro","Julia"];
+setInterval(()=>{
+    let name = names[Math.floor(Math.random()*names.length)];
+    let toast = document.getElementById("toast");
+    toast.innerText = name + " começou o teste agora";
+    toast.classList.remove("hidden");
+    setTimeout(()=> toast.classList.add("hidden"),2000);
+},5000);
+
 </script>
+
 </body>
 </html>
