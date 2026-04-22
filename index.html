@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Scanner Mental</title>
+<title>Análise de Foco e Performance</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-<!-- Google Ads -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-779704420"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -37,50 +36,48 @@ body { font-family: 'Inter', sans-serif; }
 
 <body class="gradient min-h-screen flex items-center justify-center p-4 text-gray-800">
 
-<!-- TELA 1: LANDING -->
 <div id="landing" class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
     
     <div class="flex justify-center -mt-16 mb-4">
         <div class="gradient w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
         </div>
     </div>
 
-    <h1 class="text-3xl font-extrabold text-center mb-2 text-indigo-600">Scanner Mental</h1>
-    <p class="text-center text-gray-600 mb-2 font-semibold">Em 60seg faça um teste e veja como está seu cérebro</p>
-    <p class="text-center text-xs text-gray-500 mb-6">🛡️ 100% Gratuito e Anônimo</p>
+    <h1 class="text-3xl font-extrabold text-center mb-2 text-indigo-600">Mapa de Performance</h1>
+    <p class="text-center text-gray-600 mb-2 font-semibold">Em 60seg faça um teste e veja seu nível de agilidade mental</p>
+    <p class="text-center text-xs text-gray-500 mb-6">🛡️ 100% Seguro e Anônimo</p>
 
     <div class="bg-indigo-50 rounded-xl p-4 mb-6">
         <p class="font-bold text-sm mb-3">⚡ Em 60 segundos você descobre:</p>
         <div class="space-y-2 text-sm text-gray-700">
             <div class="flex items-start gap-2">
                 <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                <span>Seu nível de uso do celular de 0 a 100%</span>
+                <span>Seu nível de produtividade digital</span>
             </div>
             <div class="flex items-start gap-2">
                 <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                <span>Quais hábitos digitais mais tomam seu tempo</span>
+                <span>Quais hábitos roubam sua energia</span>
             </div>
             <div class="flex items-start gap-2">
                 <svg class="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                <span>Dicas práticas para ter mais foco no dia a dia</span>
+                <span>Como blindar sua atenção no dia a dia</span>
             </div>
         </div>
     </div>
 
     <button onclick="startQuiz()" class="w-full gradient-btn text-white py-4 rounded-xl font-bold text-lg shadow-lg pulse">
-        Começar Scanner Agora →
+        Iniciar Análise Agora →
     </button>
 
     <p class="text-center text-xs text-gray-500 mt-4">
-        👥 <span id="people-count">+47.283</span> pessoas já fizeram o teste esta semana
+        👥 <span id="people-count">+47.283</span> pessoas já fizeram a análise esta semana
     </p>
 
 </div>
 
-<!-- TELA 2: QUIZ -->
 <div id="quiz" class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl hidden">
     <div id="progress-text" class="text-center text-sm text-gray-500 mb-2">Pergunta 1 de 8</div>
 
@@ -92,14 +89,13 @@ body { font-family: 'Inter', sans-serif; }
     <div id="options" class="space-y-3"></div>
 </div>
 
-<!-- TELA 3: RESULTADO -->
 <div id="result" class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl hidden">
     <div class="flex justify-center -mt-16 mb-4">
         <div id="result-icon" class="w-16 h-16 rounded-full flex items-center justify-center shadow-lg">
         </div>
     </div>
 
-    <h2 class="text-2xl font-extrabold text-center mb-2">Seu Diagnóstico</h2>
+    <h2 class="text-2xl font-extrabold text-center mb-2">Seu Perfil de Performance</h2>
     <div id="score" class="text-6xl font-extrabold text-center mb-2"></div>
     <div id="level" class="text-xl font-bold text-center mb-4"></div>
     <p id="desc" class="text-center mb-6 text-gray-700 text-sm"></p>
@@ -113,7 +109,6 @@ body { font-family: 'Inter', sans-serif; }
     </p>
 </div>
 
-<!-- NOTIFICAÇÃO -->
 <div id="toast" class="toast hidden bg-black text-white px-4 py-2 rounded-lg text-sm"></div>
 
 <script>
@@ -132,7 +127,7 @@ a:[
 ]
 },
 {
-q:"Quando abre Instagram/TikTok pra ver 1 coisa, o que acontece?",
+q:"Quando abre redes sociais pra ver 1 coisa, o que acontece?",
 a:[
 "Vejo e fecho na hora",
 "Rolo o feed por 5-10min",
@@ -141,16 +136,16 @@ a:[
 ]
 },
 {
-q:"Sobre vídeos curtos: Shorts, Reels, TikTok...",
+q:"Sobre vídeos curtos de entretenimento:",
 a:[
 "Não assisto, acho perda de tempo",
 "Vejo alguns quando aparecem",
-"Não consigo parar, sempre tem +1 vídeo",
-"Acordo de madrugada pra ver mais"
+"Sinto dificuldade em parar de rolar",
+"Passo horas assistindo sem perceber"
 ]
 },
 {
-q:"Você pega o celular achando que vibrou, mas não tinha nada?",
+q:"Você pega o celular achando que recebeu notificação, mas não tinha nada?",
 a:[
 "Nunca aconteceu comigo",
 "Raramente, 1x no mês",
@@ -159,7 +154,7 @@ a:[
 ]
 },
 {
-q:"Você se compara com outras pessoas nas redes sociais?",
+q:"Você sente que sua produtividade cai ao ver a vida de outros online?",
 a:[
 "Nunca",
 "Raramente",
@@ -168,7 +163,7 @@ a:[
 ]
 },
 {
-q:"Você perde o foco facilmente durante o dia?",
+q:"Você sente dificuldade em manter a atenção durante o dia?",
 a:[
 "Nunca",
 "Às vezes",
@@ -177,7 +172,7 @@ a:[
 ]
 },
 {
-q:"Você acorda cansado mesmo após dormir?",
+q:"Sente que sua energia mental está baixa ao longo do dia?",
 a:[
 "Nunca",
 "Às vezes",
@@ -186,12 +181,12 @@ a:[
 ]
 },
 {
-q:"Nos últimos 30 dias você sentiu:",
+q:"Nos últimos 30 dias você se sentiu:",
 a:[
 "Disposto e focado normalmente",
-"Um pouco de ansiedade às vezes",
-"Comparação com outros + perda de foco",
-"Ansiedade + comparação + sem foco + desânimo diariamente"
+"Mente acelerada em alguns momentos",
+"Sobrecarga mental e baixa produtividade",
+"Mente sobrecarregada e falta de motivação diária"
 ]
 }
 ];
@@ -252,25 +247,25 @@ function finish(){
     let isCritical = false;
 
     if (totalPoints <= 7) {
-        level = "Uso Consciente";
-        desc = "Você mantém bons hábitos digitais. Veja como otimizar ainda mais seu tempo e produtividade no dia a dia.";
+        level = "Foco Equilibrado";
+        desc = "Você mantém bons hábitos digitais. Veja como blindar ainda mais sua atenção e performance no dia a dia.";
         value = 97;
         finalLink = "https://go.hotmart.com/K104595453M";
         icon = `<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
         color = "bg-green-500";
     } else if (totalPoints <= 16) {
-        level = "Uso Moderado";
-        desc = "Alguns hábitos digitais estão tomando mais tempo que o ideal. Descubra como recuperar 2-3h do seu dia.";
+        level = "Foco em Alerta";
+        desc = "Alguns hábitos digitais estão reduzindo sua agilidade mental. Descubra como recuperar seu tempo produtivo.";
         value = 147;
         finalLink = "https://go.hotmart.com/A104629637C";
         icon = `<svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
         color = "bg-yellow-500";
     } else {
-        level = "Uso Intenso";
-        desc = "Seu tempo de tela está acima da média. Veja estratégias práticas para melhorar seu foco e produtividade.";
+        level = "Sobrecarga de Atenção";
+        desc = "Seu nível de estímulos digitais está drenando sua energia. Veja estratégias práticas para retomar o controle do seu foco.";
         value = 297;
         finalLink = "https://go.hotmart.com/V104583149C";
-        icon = `<div class="text-4xl">😰</div>`;
+        icon = `<div class="text-4xl">⚡</div>`;
         color = "bg-red-500";
         isCritical = true;
     }
@@ -282,18 +277,11 @@ function finish(){
     document.getElementById("result-icon").innerHTML = icon;
     document.getElementById("result-icon").className = `w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${color}`;
 
-    // CONVERSÃO COM TEU LABEL REAL + VALOR DINÂMICO
     gtag('event','conversion',{
         'send_to':'AW-779704420/NFZPCOXG9Z4cEOSw5fMC',
         'value': value,
         'currency':'BRL',
-        'transaction_id': `scanner-${Date.now()}`
-    });
-
-    gtag('event','quiz_result',{
-        'level': level,
-        'points': totalPoints,
-        'value': value
+        'transaction_id': `performance-${Date.now()}`
     });
 
     if(!isCritical){
@@ -311,7 +299,6 @@ function ctaClick(){
     window.location.href = finalLink;
 }
 
-// PROVA SOCIAL DINÂMICA
 let people = 47283;
 setInterval(()=>{
     people += Math.floor(Math.random()*3);
@@ -322,17 +309,15 @@ setInterval(()=>{
     }
 },2000);
 
-// NOTIFICAÇÕES FAKE
 const names = ["João","Maria","Carlos","Ana","Lucas","Fernanda","Beatriz","Rafael","Pedro","Julia"];
 setInterval(()=>{
     let name = names[Math.floor(Math.random()*names.length)];
     let toast = document.getElementById("toast");
-    toast.innerText = name + " começou o teste agora";
+    toast.innerText = name + " iniciou a análise agora";
     toast.classList.remove("hidden");
     setTimeout(()=> toast.classList.add("hidden"),2000);
 },5000);
 
 </script>
-
 </body>
 </html>
